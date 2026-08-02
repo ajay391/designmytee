@@ -46,7 +46,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <img
             src="/logo-transparent.png"
             alt="design my tee"
-            className="h-8 w-auto object-contain"
+            className="h-11 sm:h-12 w-auto object-contain"
           />
           <p className="text-[10px] font-mono text-[#F05A22] font-bold uppercase tracking-widest mt-1">Admin Panel</p>
         </Link>

@@ -18,16 +18,33 @@ create table if not exists profiles (
   updated_at timestamptz not null default now()
 );
 
+-- Ensure columns exist if table pre-existed
+alter table profiles add column if not exists name text not null default '';
+alter table profiles add column if not exists email text not null default '';
+alter table profiles add column if not exists phone text;
+alter table profiles add column if not exists role text not null default 'customer';
+alter table profiles add column if not exists avatar_url text;
+
 -- Auto-create profile on signup
-create or replace function handle_new_user()
-returns trigger language plpgsql security definer as $$
+create or replace function public.handle_new_user()
+returns trigger
+language plpgsql
+security definer set search_path = public
+as $$
 begin
-  insert into profiles (id, email, name)
+  insert into public.profiles (id, email, name, phone)
   values (
     new.id,
-    new.email,
-    coalesce(new.raw_user_meta_data->>'name', split_part(new.email, '@', 1))
-  );
+    coalesce(new.email, ''),
+    coalesce(new.raw_user_meta_data->>'name', split_part(coalesce(new.email, ''), '@', 1)),
+    new.raw_user_meta_data->>'phone'
+  )
+  on conflict (id) do update set
+    email = excluded.email,
+    name = coalesce(excluded.name, public.profiles.name),
+    phone = coalesce(excluded.phone, public.profiles.phone);
+  return new;
+exception when others then
   return new;
 end;
 $$;
@@ -35,7 +52,8 @@ $$;
 drop trigger if exists on_auth_user_created on auth.users;
 create trigger on_auth_user_created
   after insert on auth.users
-  for each row execute procedure handle_new_user();
+  for each row execute procedure public.handle_new_user();
+
 
 -- ============================================
 -- DESIGN REQUESTS
@@ -146,6 +164,8 @@ create table if not exists bulk_requests (
 -- ============================================
 -- PRODUCTS (Our Own Designs catalog)
 -- ============================================
+drop table if exists products cascade;
+
 create table if not exists products (
   id uuid primary key default gen_random_uuid(),
   name text not null,
@@ -163,6 +183,7 @@ create table if not exists products (
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
 
 -- ============================================
 -- ADDRESSES

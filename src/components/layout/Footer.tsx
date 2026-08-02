@@ -70,7 +70,7 @@ export function Footer() {
               <img
                 src="/logo-transparent.png"
                 alt="design my tee"
-                className="h-10 w-auto object-contain hover:opacity-90 transition-opacity filter drop-shadow-md"
+                className="h-14 sm:h-16 md:h-20 w-auto object-contain hover:opacity-90 transition-opacity filter drop-shadow-md"
               />
             </Link>
             <p className="text-white/60 text-sm leading-relaxed mb-6 max-w-xs">

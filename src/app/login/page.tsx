@@ -60,7 +60,7 @@ export default function LoginPage() {
             <img
               src="/logo-transparent.png"
               alt="design my tee"
-              className="h-12 w-auto mx-auto object-contain group-hover:scale-105 transition-transform"
+              className="h-16 sm:h-20 md:h-24 w-auto mx-auto object-contain group-hover:scale-105 transition-transform"
             />
           </Link>
           <h1 className="text-3xl font-black text-[#1A1A1A]">Welcome back</h1>

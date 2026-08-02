@@ -82,14 +82,14 @@ export function Navbar() {
             : "bg-white/80 backdrop-blur-md"
         )}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="relative flex items-center justify-between h-16">
+        <div className="w-full max-w-[1800px] mx-auto px-3 sm:px-6 lg:px-8">
+          <div className="relative flex items-center justify-between h-20 sm:h-22">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2 group z-10">
+            <Link href="/" className="flex items-center gap-2 group z-10 py-2">
               <img
                 src="/logo-transparent.png"
                 alt="design my tee"
-                className="h-9 sm:h-10 w-auto object-contain group-hover:scale-105 transition-transform"
+                className="h-12 sm:h-14 md:h-16 w-auto object-contain group-hover:scale-105 transition-transform"
               />
             </Link>
 
