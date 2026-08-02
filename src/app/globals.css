@@ -1,26 +1,133 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primary: #F05A22;
+  --primary-dark: #C8461A;
+  --primary-light: #FF7A45;
+  --primary-foreground: #FFFFFF;
+  --background: #FFFFFF;
+  --surface: #F8F7F5;
+  --surface-2: #F0EDE8;
+  --text-primary: #1A1A1A;
+  --text-secondary: #6B6B6B;
+  --text-muted: #9A9A9A;
+  --border: #E5E3DF;
+  --border-focus: #F05A22;
+  --success: #16A34A;
+  --warning: #D97706;
+  --error: #DC2626;
+  --radius: 0.75rem;
+  --radius-sm: 0.5rem;
+  --radius-lg: 1.25rem;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--background);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
+
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--surface);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 99px;
+}
+
+/* Selection */
+::selection {
+  background: #F05A22;
+  color: white;
+}
+
+/* Focus */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-16px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes pulse-ring {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+.animate-fade-in { animation: fadeIn 0.5s ease forwards; }
+.animate-slide-in { animation: slideIn 0.4s ease forwards; }
+.animate-float { animation: float 3s ease-in-out infinite; }
+
+/* Skeleton loader */
+.skeleton {
+  background: linear-gradient(90deg, var(--surface) 25%, var(--surface-2) 50%, var(--surface) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius);
+}
+
+/* Glass effect */
+.glass {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Orange gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Card hover lift */
+.card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(240, 90, 34, 0.12);
+}
+
+/* Status badge colors */
+.status-submitted   { background: #EFF6FF; color: #2563EB; }
+.status-in_review   { background: #FFF7ED; color: #C2410C; }
+.status-assigned    { background: #F5F3FF; color: #7C3AED; }
+.status-in_progress { background: #FFFBEB; color: #B45309; }
+.status-awaiting_feedback { background: #FFF7ED; color: #EA580C; }
+.status-revision_requested { background: #FEF2F2; color: #B91C1C; }
+.status-approved    { background: #F0FDF4; color: #15803D; }
+.status-completed   { background: #F0FDF4; color: #166534; }
+.status-cancelled   { background: #F9FAFB; color: #6B7280; }
+.status-new         { background: #EFF6FF; color: #2563EB; }
+.status-quoted      { background: #F5F3FF; color: #7C3AED; }
+.status-accepted    { background: #F0FDF4; color: #15803D; }
+.status-converted   { background: #F0FDF4; color: #166534; }
+.status-closed      { background: #F9FAFB; color: #6B7280; }
