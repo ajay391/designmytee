@@ -124,13 +124,17 @@ export function CommunityGallerySection() {
           </div>
 
           {/* Category Filter Pills & Instagram Link */}
-          <div className="flex flex-wrap items-center gap-3">
-            <div className="inline-flex flex-wrap p-1 bg-white border border-[#EAEAEA] shadow-sm rounded-full">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 w-full lg:w-auto">
+            <div className="flex items-center gap-1 sm:gap-1.5 p-1 bg-white border border-[#EAEAEA] shadow-sm rounded-full overflow-x-auto scrollbar-none max-w-full">
               {categories.map((cat) => (
                 <button
                   key={cat}
-                  onClick={() => setActiveCategory(cat)}
-                  className={`px-4 py-1.5 rounded-full font-mono text-xs font-bold transition-all ${
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setActiveCategory(cat);
+                  }}
+                  className={`whitespace-nowrap flex-shrink-0 px-3 sm:px-3.5 py-1.5 rounded-full font-mono text-[11px] sm:text-xs font-bold transition-all cursor-pointer relative z-30 touch-manipulation ${
                     activeCategory === cat
                       ? "bg-[#F05A22] text-white shadow-md shadow-[#F05A22]/30"
                       : "text-[#666666] hover:text-[#141414]"
@@ -145,9 +149,9 @@ export function CommunityGallerySection() {
               href="https://instagram.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-white border border-[#EAEAEA] hover:border-[#F05A22] text-[#141414] text-xs font-mono font-bold px-5 py-2.5 rounded-full transition-all shadow-sm hover:shadow-md"
+              className="inline-flex items-center gap-2 bg-white border border-[#EAEAEA] hover:border-[#F05A22] text-[#141414] text-[11px] sm:text-xs font-mono font-bold px-4 sm:px-5 py-2 rounded-full transition-all shadow-sm hover:shadow-md self-start sm:self-auto cursor-pointer relative z-30 touch-manipulation shrink-0"
             >
-              <span className="text-[#F05A22]"><InstagramIcon /></span> @designmytee.in
+              <span className="text-[#F05A22] pointer-events-none"><InstagramIcon /></span> @designmytee.in
             </a>
           </div>
         </div>

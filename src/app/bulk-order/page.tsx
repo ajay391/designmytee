@@ -111,7 +111,7 @@ export default function BulkOrderPage() {
               href={`https://wa.me/${wa}?text=${encodeURIComponent(waMsg)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 bg-[#25D366] text-black font-black text-xs uppercase tracking-wider px-8 py-4 rounded-full shadow-lg hover:scale-105 transition-all"
+              className="inline-flex items-center justify-center gap-2 bg-[#25D366] text-black font-black text-xs uppercase tracking-wider px-5 sm:px-8 py-2.5 sm:py-4 rounded-full shadow-lg hover:scale-105 transition-all"
             >
               <MessageCircle className="w-5 h-5" /> Direct WhatsApp Quick Quote
             </a>
@@ -319,7 +319,7 @@ export default function BulkOrderPage() {
             type="submit"
             size="lg"
             loading={loading}
-            className="w-full bg-[#F05A22] hover:bg-[#C8461A] text-white font-black text-sm uppercase tracking-wider py-4 rounded-full shadow-xl shadow-[#F05A22]/20"
+            className="w-full bg-[#F05A22] hover:bg-[#C8461A] text-white font-black text-xs sm:text-sm uppercase tracking-wider py-2.5 sm:py-4 rounded-full shadow-xl shadow-[#F05A22]/20"
             icon={<ArrowRight className="w-5 h-5" />}
             iconPosition="right"
           >

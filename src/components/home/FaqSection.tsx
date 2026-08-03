@@ -127,14 +127,14 @@ export function FaqSection() {
         </div>
 
         {/* Live Studio Support Helper Band */}
-        <div className="bg-white border border-[#EAEAEA] p-6 rounded-[24px] flex flex-col sm:flex-row items-center justify-between gap-4 shadow-md shadow-black/[0.03]">
-          <div className="flex items-center gap-3 text-center sm:text-left">
-            <div className="w-10 h-10 rounded-2xl bg-[#F05A22]/10 border border-[#F05A22]/20 text-[#F05A22] flex items-center justify-center flex-shrink-0">
-              <MessageSquare className="w-5 h-5" />
+        <div className="bg-white border border-[#EAEAEA] p-5 sm:p-6 rounded-[24px] flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6 shadow-md shadow-black/[0.03]">
+          <div className="flex flex-col sm:flex-row items-center gap-3 text-center sm:text-left">
+            <div className="w-10 h-10 rounded-2xl bg-[#F05A22]/10 border border-[#F05A22]/20 text-[#F05A22] flex items-center justify-center flex-shrink-0 mx-auto sm:mx-0">
+              <MessageSquare className="w-5 h-5 pointer-events-none" />
             </div>
             <div>
               <p className="font-bold text-[#141414] text-sm">Have a unique design or bulk question?</p>
-              <p className="text-xs text-[#666666] font-mono">Chat directly with a Kochi studio designer on WhatsApp</p>
+              <p className="text-xs text-[#666666] font-mono mt-0.5">Chat directly with a Kochi studio designer on WhatsApp</p>
             </div>
           </div>
 
@@ -142,9 +142,9 @@ export function FaqSection() {
             href="https://wa.me/919876543210"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#1EBE5A] text-black font-black text-xs uppercase tracking-wider px-6 py-3 rounded-full transition-all shadow-md flex-shrink-0"
+            className="inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1EBE5A] text-black font-black text-xs uppercase tracking-wider px-5 sm:px-6 py-2.5 sm:py-3 rounded-full transition-all shadow-md flex-shrink-0 w-full sm:w-auto cursor-pointer relative z-30 touch-manipulation"
           >
-            WhatsApp Support <ArrowRight className="w-4 h-4" />
+            WhatsApp Support <ArrowRight className="w-4 h-4 pointer-events-none" />
           </a>
         </div>
 

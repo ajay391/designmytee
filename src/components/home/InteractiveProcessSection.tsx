@@ -170,16 +170,30 @@ export function InteractiveProcessSection() {
             );
         });
       });
+
+      // MOBILE: Clear GSAP props on cards and visuals so React state controls display
+      mm.add("(max-width: 1023px)", () => {
+        stepsData.forEach((_, idx) => {
+          gsap.set(`.process-card-${idx}`, { clearProps: "all" });
+          gsap.set(`.process-visual-${idx}`, { clearProps: "all" });
+        });
+      });
     }, wrapperRef);
 
     return () => ctx.revert();
   }, []);
 
-  // Programmatically scroll to targeted step when sidebar button is clicked
+  // Programmatically scroll to targeted step when sidebar or tab button is clicked
   const handleStepClick = (stepIndex: number) => {
     setActiveStepIndex(stepIndex);
 
-    if (scrollTriggerRef.current) {
+    // On mobile (< 1024px), clear GSAP inline styles to allow pure React state rendering
+    if (typeof window !== "undefined" && window.innerWidth < 1024) {
+      stepsData.forEach((_, idx) => {
+        gsap.set(`.process-card-${idx}`, { clearProps: "all" });
+        gsap.set(`.process-visual-${idx}`, { clearProps: "all" });
+      });
+    } else if (scrollTriggerRef.current) {
       const st = scrollTriggerRef.current;
       const start = st.start;
       const end = st.end;
@@ -214,7 +228,7 @@ export function InteractiveProcessSection() {
       {/* Pinned Stage Container */}
       <div
         ref={pinTargetRef}
-        className="relative bg-[#F6F4F1] text-[#141414] w-full min-h-screen flex flex-col justify-between py-6"
+        className="relative bg-[#F6F4F1] text-[#141414] w-full min-h-0 lg:min-h-screen flex flex-col justify-between py-4 lg:py-6"
       >
         {/* Dynamic Watermark Background */}
         <div className="absolute inset-0 pointer-events-none select-none overflow-hidden flex items-center justify-center z-0">
@@ -240,18 +254,27 @@ export function InteractiveProcessSection() {
         </div>
 
         {/* Header Bar inside Section */}
-        <div className="relative z-20 max-w-[1536px] mx-auto px-4 sm:px-8 lg:px-12 w-full pt-6 pb-4 flex items-center justify-between border-b border-[#EAEAEA]">
-          <div>
-            <div className="inline-flex items-center gap-2 bg-[#F05A22]/10 border border-[#F05A22]/20 text-[#F05A22] rounded-full px-4 py-1 text-xs font-black uppercase tracking-widest mb-1.5 shadow-sm">
-              <Zap className="w-3.5 h-3.5" /> Interactive Print Journey
+        <div className="relative z-20 max-w-[1536px] mx-auto px-4 sm:px-8 lg:px-12 w-full pt-6 sm:pt-8 pb-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 border-b border-[#EAEAEA]">
+          <div className="space-y-2.5 sm:space-y-3 w-full sm:w-auto">
+            <div className="flex items-center justify-between sm:justify-start gap-2 w-full sm:w-auto">
+              <div className="inline-flex items-center gap-1.5 sm:gap-2 bg-[#F05A22]/10 border border-[#F05A22]/20 text-[#F05A22] rounded-full px-3 sm:px-4 py-1 text-[10px] sm:text-xs font-black uppercase tracking-widest shadow-sm">
+                <Zap className="w-3 h-3 sm:w-3.5 sm:h-3.5" /> Interactive Print Journey
+              </div>
+              <div className="sm:hidden flex items-center gap-1.5 bg-white border border-[#EAEAEA] rounded-full px-3 py-1 shadow-sm text-xs">
+                <span className="font-mono text-[#666666] text-[10px]">STEP</span>
+                <span className="font-black text-[#F05A22] text-xs">
+                  {stepsData[activeStepIndex]?.stepNum}
+                </span>
+                <span className="font-mono text-[#999999] text-[10px]">/ 06</span>
+              </div>
             </div>
-            <h2 className="text-xl sm:text-3xl font-black uppercase tracking-tight text-[#141414]">
+            <h2 className="text-xl sm:text-3xl font-black uppercase tracking-tight text-[#141414] pt-1">
               FROM BRIEF TO <span className="text-[#F05A22]">DISPATCH</span>
             </h2>
           </div>
 
-          {/* Progress Count Badge */}
-          <div className="flex items-center gap-3 bg-white border border-[#EAEAEA] rounded-full px-4 sm:px-5 py-2 shadow-sm">
+          {/* Progress Count Badge (Desktop) */}
+          <div className="hidden sm:flex items-center gap-3 bg-white border border-[#EAEAEA] rounded-full px-4 sm:px-5 py-2 shadow-sm">
             <span className="text-xs font-mono text-[#666666]">STEP</span>
             <span className="text-base font-black text-[#F05A22]">
               {stepsData[activeStepIndex]?.stepNum}
@@ -261,12 +284,16 @@ export function InteractiveProcessSection() {
         </div>
 
         {/* MOBILE HORIZONTAL PHASE TAB BAR (< 1024px) */}
-        <div className="flex lg:hidden overflow-x-auto gap-2 py-3 px-4 scrollbar-none border-b border-[#EAEAEA] relative z-20 bg-white/70 backdrop-blur-md">
+        <div className="flex lg:hidden overflow-x-auto gap-2 py-3 px-4 scrollbar-none border-b border-[#EAEAEA] relative z-30 bg-white/95 backdrop-blur-md">
           {stepsData.map((step, idx) => (
             <button
               key={step.id}
-              onClick={() => setActiveStepIndex(idx)}
-              className={`flex-shrink-0 px-4 py-2 rounded-full font-mono text-xs font-bold transition-all ${
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleStepClick(idx);
+              }}
+              className={`flex-shrink-0 px-4 py-2 rounded-full font-mono text-xs font-bold transition-all cursor-pointer select-none active:scale-95 relative z-30 touch-manipulation ${
                 activeStepIndex === idx
                   ? "bg-[#F05A22] text-white shadow-md shadow-[#F05A22]/30"
                   : "bg-white border border-[#EAEAEA] text-[#666666] hover:text-[#141414]"
@@ -326,7 +353,7 @@ export function InteractiveProcessSection() {
             </div>
 
             {/* CENTER COLUMN: Text & Typography Panel (4 cols) */}
-            <div className="lg:col-span-4 relative min-h-[300px] sm:min-h-[340px] flex items-center">
+            <div className="lg:col-span-4 relative min-h-0 lg:min-h-[340px] flex items-center">
               {stepsData.map((step, idx) => {
                 const isActive = activeStepIndex === idx;
                 return (
@@ -389,7 +416,7 @@ export function InteractiveProcessSection() {
             </div>
 
             {/* RIGHT COLUMN: Animated Visual Stage (5 cols) */}
-            <div className="lg:col-span-5 relative min-h-[300px] sm:min-h-[340px] lg:min-h-[420px] flex items-center justify-center">
+            <div className="lg:col-span-5 relative min-h-0 lg:min-h-[420px] flex items-center justify-center">
               {stepsData.map((step, idx) => {
                 const isActive = activeStepIndex === idx;
                 return (
@@ -543,36 +570,44 @@ export function InteractiveProcessSection() {
         </div>
 
         {/* MOBILE NEXT/PREV STEP BUTTONS (< 1024px) */}
-        <div className="flex lg:hidden items-center justify-between px-4 sm:px-6 py-3 border-t border-[#EAEAEA] relative z-20">
+        <div className="flex lg:hidden items-center justify-between px-4 sm:px-6 py-3 border-t border-[#EAEAEA] relative z-30 bg-[#F6F4F1]">
           <button
-            onClick={handlePrev}
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              handlePrev();
+            }}
             disabled={activeStepIndex === 0}
-            className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-full bg-white border border-[#EAEAEA] disabled:opacity-30 disabled:pointer-events-none"
+            className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-full bg-white border border-[#EAEAEA] text-[#141414] shadow-sm active:scale-95 disabled:opacity-30 disabled:pointer-events-none cursor-pointer relative z-30 touch-manipulation"
           >
-            <ChevronLeft className="w-4 h-4" /> Previous
+            <ChevronLeft className="w-4 h-4 pointer-events-none" /> Previous
           </button>
 
-          <span className="text-xs font-mono text-[#666666]">
+          <span className="text-xs font-mono font-bold text-[#666666]">
             {activeStepIndex + 1} of {stepsData.length}
           </span>
 
           <button
-            onClick={handleNext}
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleNext();
+            }}
             disabled={activeStepIndex === stepsData.length - 1}
-            className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-full bg-[#F05A22] text-white shadow-md disabled:opacity-30 disabled:pointer-events-none"
+            className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-full bg-[#F05A22] text-white shadow-md active:scale-95 disabled:opacity-30 disabled:pointer-events-none cursor-pointer relative z-30 touch-manipulation"
           >
-            Next <ChevronRight className="w-4 h-4" />
+            Next <ChevronRight className="w-4 h-4 pointer-events-none" />
           </button>
         </div>
 
         {/* Footer Progress Tracker Line inside Section */}
-        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pb-6 pt-2 border-t border-[#EAEAEA]">
-          <div className="flex items-center justify-between text-xs font-mono text-[#666666] mb-2 font-medium">
-            <span>START: BRIEF SUBMISSION</span>
-            <span className="text-[#F05A22] font-bold">
+        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-3 pb-5 sm:pb-6 border-t border-[#EAEAEA]">
+          <div className="flex items-center justify-between text-[10px] sm:text-xs font-mono text-[#666666] mb-2 font-medium">
+            <span className="truncate">START: BRIEF<span className="hidden sm:inline"> SUBMISSION</span></span>
+            <span className="text-[#F05A22] font-bold shrink-0 px-2">
               {Math.round(((activeStepIndex + 1) / stepsData.length) * 100)}% COMPLETE
             </span>
-            <span>END: DOORSTEP DELIVERY</span>
+            <span className="truncate text-right">END: <span className="hidden sm:inline">DOORSTEP </span>DELIVERY</span>
           </div>
           <div className="h-1.5 w-full bg-[#EAEAEA] rounded-full overflow-hidden">
             <div

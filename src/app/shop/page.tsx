@@ -162,7 +162,7 @@ export default async function ShopPage({
             <div className="pt-2">
               <Link
                 href="/custom-request"
-                className="inline-flex items-center gap-2 bg-[#F05A22] text-white font-black text-xs uppercase tracking-wider px-8 py-3.5 rounded-full hover:bg-[#C8461A] transition-all shadow-lg shadow-[#F05A22]/20"
+                className="inline-flex items-center gap-2 bg-[#F05A22] text-white font-black text-xs uppercase tracking-wider px-5 sm:px-8 py-2.5 sm:py-3.5 rounded-full hover:bg-[#C8461A] transition-all shadow-lg shadow-[#F05A22]/20"
               >
                 Start Custom Request <ArrowUpRight className="w-4 h-4" />
               </Link>

@@ -56,15 +56,15 @@ export function TestimonialsSection() {
           </div>
 
           {/* Rating Pill */}
-          <div className="inline-flex items-center gap-4 bg-[#FAF9F6] border border-[#EAEAEA] rounded-2xl px-5 py-3 text-xs font-mono text-[#666666] shadow-sm">
-            <div className="flex items-center gap-1.5">
-              <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
-              <span className="text-[#141414] font-black text-sm">4.9 / 5.0</span>
+          <div className="inline-flex flex-wrap items-center justify-center sm:justify-start gap-2.5 sm:gap-4 bg-[#FAF9F6] border border-[#EAEAEA] rounded-2xl px-4 sm:px-5 py-2.5 sm:py-3 text-[11px] sm:text-xs font-mono text-[#666666] shadow-sm whitespace-nowrap">
+            <div className="flex items-center gap-1.5 whitespace-nowrap">
+              <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-500 fill-amber-500 flex-shrink-0" />
+              <span className="text-[#141414] font-black text-xs sm:text-sm">4.9 / 5.0</span>
             </div>
-            <span className="w-1 h-1 bg-[#EAEAEA] rounded-full" />
-            <span className="font-semibold text-[#141414]">340+ Reviews</span>
-            <span className="w-1 h-1 bg-[#EAEAEA] rounded-full" />
-            <span className="text-[#F05A22] font-black">100% Satisfaction</span>
+            <span className="w-1 h-1 bg-[#EAEAEA] rounded-full hidden sm:block" />
+            <span className="font-semibold text-[#141414] whitespace-nowrap">340+ Reviews</span>
+            <span className="w-1 h-1 bg-[#EAEAEA] rounded-full hidden sm:block" />
+            <span className="text-[#F05A22] font-black whitespace-nowrap">100% Satisfaction</span>
           </div>
         </div>
 

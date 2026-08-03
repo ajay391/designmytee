@@ -153,16 +153,16 @@ export function HeroSliderSection() {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex flex-wrap items-center gap-4 pt-2">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-2">
               <Link
                 href={slide.primaryCtaLink}
-                className="inline-flex items-center gap-3 bg-[#F05A22] text-white font-black text-sm uppercase tracking-wider px-9 py-4.5 rounded-full hover:bg-[#C8461A] hover:scale-105 transition-all duration-200 shadow-2xl shadow-[#F05A22]/40 border-2 border-[#F05A22]"
+                className="inline-flex items-center justify-center gap-2.5 sm:gap-3 bg-[#F05A22] text-white font-black text-xs sm:text-sm uppercase tracking-wider px-5 sm:px-9 py-2.5 sm:py-4.5 rounded-full hover:bg-[#C8461A] hover:scale-105 transition-all duration-200 shadow-2xl shadow-[#F05A22]/40 border-2 border-[#F05A22]"
               >
                 <Upload className="w-4 h-4" /> {slide.primaryCtaText}
               </Link>
               <Link
                 href={slide.secondaryCtaLink}
-                className="inline-flex items-center gap-2.5 bg-white/5 border border-white/20 hover:border-white text-white font-bold text-xs uppercase tracking-wider px-8 py-4.5 rounded-full hover:bg-white/10 transition-all"
+                className="inline-flex items-center justify-center gap-2 sm:gap-2.5 bg-white/5 border border-white/20 hover:border-white text-white font-bold text-xs uppercase tracking-wider px-5 sm:px-8 py-2.5 sm:py-4.5 rounded-full hover:bg-white/10 transition-all"
               >
                 {slide.secondaryCtaText} <ArrowUpRight className="w-4 h-4" />
               </Link>
@@ -208,29 +208,55 @@ export function HeroSliderSection() {
         </div>
 
         {/* SLIDER NAVIGATION CONTROLS BAR */}
-        <div className="mt-12 pt-6 border-t border-white/10 flex items-center justify-between">
+        <div className="mt-10 sm:mt-14 pt-6 pb-2 border-t border-white/10 flex flex-col sm:grid sm:grid-cols-3 items-center gap-5 sm:gap-6 relative z-30">
           
-          {/* Slide Indicator Count & Progress Bar */}
-          <div className="flex items-center gap-4">
-            <span className="text-xs font-mono font-bold text-white/50">
-              <strong className="text-[#F05A22] text-base">{`0${currentSlide + 1}`}</strong> / 03
-            </span>
-            <div className="w-24 sm:w-36 h-1 bg-white/10 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-[#F05A22] transition-all duration-500 rounded-full"
-                style={{ width: `${((currentSlide + 1) / slides.length) * 100}%` }}
-              />
+          {/* Left Column: Count & Progress & Dots (Mobile) */}
+          <div className="flex items-center justify-between sm:justify-start w-full gap-4">
+            <div className="flex items-center gap-3">
+              <span className="text-xs font-mono font-bold text-white/50">
+                <strong className="text-[#F05A22] text-sm sm:text-base">{`0${currentSlide + 1}`}</strong> / 03
+              </span>
+              <div className="w-20 sm:w-36 h-1 bg-white/10 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-[#F05A22] transition-all duration-500 rounded-full"
+                  style={{ width: `${((currentSlide + 1) / slides.length) * 100}%` }}
+                />
+              </div>
+            </div>
+
+            {/* Mobile Slide Dots */}
+            <div className="flex sm:hidden items-center gap-2">
+              {slides.map((_, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setCurrentSlide(idx);
+                  }}
+                  aria-label={`Go to slide ${idx + 1}`}
+                  className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer relative z-30 ${
+                    currentSlide === idx
+                      ? "w-6 bg-[#F05A22]"
+                      : "w-2.5 bg-white/20 hover:bg-white/50"
+                  }`}
+                />
+              ))}
             </div>
           </div>
 
-          {/* Slide Dots Selector */}
-          <div className="flex items-center gap-2">
+          {/* Center Column: Perfectly Centered Slide Dots Selector (Desktop) */}
+          <div className="hidden sm:flex items-center justify-center gap-2">
             {slides.map((_, idx) => (
               <button
                 key={idx}
-                onClick={() => setCurrentSlide(idx)}
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setCurrentSlide(idx);
+                }}
                 aria-label={`Go to slide ${idx + 1}`}
-                className={`h-2.5 rounded-full transition-all duration-300 ${
+                className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer relative z-30 ${
                   currentSlide === idx
                     ? "w-8 bg-[#F05A22]"
                     : "w-2.5 bg-white/20 hover:bg-white/50"
@@ -239,21 +265,29 @@ export function HeroSliderSection() {
             ))}
           </div>
 
-          {/* Left / Right Arrow Buttons */}
-          <div className="flex items-center gap-2">
+          {/* Right Column: Arrow Buttons */}
+          <div className="flex items-center justify-end w-full gap-2.5">
             <button
-              onClick={prevSlide}
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                prevSlide();
+              }}
               aria-label="Previous slide"
-              className="w-10 h-10 rounded-full bg-white/5 border border-white/15 hover:border-[#F05A22] hover:bg-[#F05A22] text-white flex items-center justify-center transition-all shadow-md active:scale-95"
+              className="w-10 h-10 rounded-full bg-white/10 border border-white/20 hover:border-[#F05A22] hover:bg-[#F05A22] text-white flex items-center justify-center transition-all shadow-md active:scale-95 cursor-pointer relative z-30 touch-manipulation"
             >
-              <ChevronLeft className="w-5 h-5" />
+              <ChevronLeft className="w-5 h-5 pointer-events-none" />
             </button>
             <button
-              onClick={nextSlide}
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                nextSlide();
+              }}
               aria-label="Next slide"
-              className="w-10 h-10 rounded-full bg-white/5 border border-white/15 hover:border-[#F05A22] hover:bg-[#F05A22] text-white flex items-center justify-center transition-all shadow-md active:scale-95"
+              className="w-10 h-10 rounded-full bg-white/10 border border-white/20 hover:border-[#F05A22] hover:bg-[#F05A22] text-white flex items-center justify-center transition-all shadow-md active:scale-95 cursor-pointer relative z-30 touch-manipulation"
             >
-              <ChevronRight className="w-5 h-5" />
+              <ChevronRight className="w-5 h-5 pointer-events-none" />
             </button>
           </div>
 

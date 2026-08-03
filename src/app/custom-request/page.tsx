@@ -347,7 +347,7 @@ export default function CustomRequestPage() {
                 type="submit"
                 size="lg"
                 loading={loading}
-                className="w-full bg-[#F05A22] hover:bg-[#C8461A] text-white font-black text-sm uppercase tracking-wider py-4 rounded-full shadow-xl shadow-[#F05A22]/20"
+                className="w-full bg-[#F05A22] hover:bg-[#C8461A] text-white font-black text-xs sm:text-sm uppercase tracking-wider py-2.5 sm:py-4 rounded-full shadow-xl shadow-[#F05A22]/20"
                 icon={<ArrowRight className="w-5 h-5" />}
                 iconPosition="right"
               >

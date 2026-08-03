@@ -137,81 +137,80 @@ export function OurOwnDesignsSection() {
   };
 
   return (
-    <section className="py-24 bg-[#121212] text-white border-b border-white/10 relative overflow-hidden">
+    <section className="py-12 sm:py-24 bg-[#121212] text-white border-b border-white/10 relative overflow-hidden">
       {/* Background Subtle Watermark */}
       <div className="absolute top-1/2 -translate-y-1/2 left-0 w-full select-none pointer-events-none overflow-hidden z-0">
-        <span className="text-[20vw] font-black tracking-tighter text-white/[0.02] uppercase leading-none block whitespace-nowrap font-mono">
+        <span className="text-[16vw] sm:text-[20vw] font-black tracking-tighter text-white/[0.02] uppercase leading-none block whitespace-nowrap font-mono">
           STUDIO DROPS
         </span>
       </div>
 
-      <div className="relative z-10 max-w-[1536px] mx-auto px-4 sm:px-8 lg:px-12 w-full">
-        
+      <div className="relative z-10 max-w-[1536px] mx-auto px-4 sm:px-8 lg:px-12 w-full max-w-full overflow-hidden">
+
         {/* Section Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-10 gap-6">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-6 sm:mb-10 gap-4 sm:gap-6">
           <div>
-            <div className="inline-flex items-center gap-2 bg-[#F05A22]/20 border border-[#F05A22]/40 text-[#F05A22] rounded-full px-4 py-1 text-xs font-mono font-bold uppercase tracking-widest mb-2.5">
-              <Sparkles className="w-3.5 h-3.5" /> Studio Ready-to-Wear Drops
+            <div className="inline-flex items-center gap-2 bg-[#F05A22]/20 border border-[#F05A22]/40 text-[#F05A22] rounded-full px-3.5 sm:px-4 py-1 text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest mb-2">
+              <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5" /> Studio Ready-to-Wear Drops
             </div>
-            <h2 className="text-4xl sm:text-6xl font-black uppercase tracking-tight text-white leading-none">
+            <h2 className="text-2xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-white leading-tight">
               OUR OWN DESIGNS
             </h2>
           </div>
 
           {/* Filter Pills + Arrow Navigation Controls */}
-          <div className="flex flex-wrap items-center gap-3">
-            <div className="inline-flex flex-wrap p-1 bg-white/5 border border-white/10 rounded-full">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 w-full lg:w-auto">
+            <div className="flex items-center gap-1.5 p-1 bg-white/5 border border-white/10 rounded-full overflow-x-auto scrollbar-none max-w-full">
               {categoriesFilter.map((cat) => (
                 <button
                   key={cat}
                   onClick={() => setActiveFilter(cat)}
-                  className={`px-4 py-1.5 rounded-full font-mono text-xs font-bold transition-all ${
-                    activeFilter === cat
+                  className={`whitespace-nowrap flex-shrink-0 px-3 sm:px-4 py-1.5 rounded-full font-mono text-[11px] sm:text-xs font-bold transition-all ${activeFilter === cat
                       ? "bg-[#F05A22] text-white shadow-lg shadow-[#F05A22]/30"
                       : "text-white/60 hover:text-white"
-                  }`}
+                    }`}
                 >
                   {cat}
                 </button>
               ))}
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 self-end sm:self-auto">
               <button
                 onClick={() => scroll("left")}
                 aria-label="Scroll left"
-                className="w-10 h-10 rounded-full bg-white/5 border border-white/15 hover:border-[#F05A22] hover:bg-[#F05A22] text-white flex items-center justify-center transition-all shadow-md active:scale-95"
+                className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/5 border border-white/15 hover:border-[#F05A22] hover:bg-[#F05A22] text-white flex items-center justify-center transition-all shadow-md active:scale-95"
               >
-                <ChevronLeft className="w-5 h-5" />
+                <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
               <button
                 onClick={() => scroll("right")}
                 aria-label="Scroll right"
-                className="w-10 h-10 rounded-full bg-white/5 border border-white/15 hover:border-[#F05A22] hover:bg-[#F05A22] text-white flex items-center justify-center transition-all shadow-md active:scale-95"
+                className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/5 border border-white/15 hover:border-[#F05A22] hover:bg-[#F05A22] text-white flex items-center justify-center transition-all shadow-md active:scale-95"
               >
-                <ChevronRight className="w-5 h-5" />
+                <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
             </div>
           </div>
         </div>
 
         {/* Featured Spotlight Card + Mouse-Draggable Drop Carousel */}
-        <div className="grid lg:grid-cols-12 gap-6 items-stretch">
-          
+        <div className="grid lg:grid-cols-12 gap-6 items-stretch max-w-full">
+
           {/* LEFT: Compact Spotlight Panel (5 cols) */}
-          <div className="lg:col-span-5 bg-gradient-to-br from-white/10 via-white/5 to-transparent border border-white/20 rounded-3xl p-6 shadow-2xl backdrop-blur-xl flex flex-col justify-between space-y-4">
+          <div className="lg:col-span-5 bg-gradient-to-br from-white/10 via-white/5 to-transparent border border-white/20 rounded-3xl p-4.5 sm:p-6 shadow-2xl backdrop-blur-xl flex flex-col justify-between space-y-4 max-w-full overflow-hidden">
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <span className="bg-[#F05A22] text-white text-[10px] font-black uppercase px-3 py-1 rounded-full tracking-wider">
                   {selectedProduct.badge}
                 </span>
-                <span className="text-xs font-mono text-white/50">
+                <span className="text-[11px] sm:text-xs font-mono text-white/50">
                   GSM: <strong className="text-white">{selectedProduct.gsm}</strong>
                 </span>
               </div>
 
               {/* Optimized Image Proportions */}
-              <div className="h-[240px] sm:h-[260px] rounded-2xl overflow-hidden bg-black relative border border-white/10 group">
+              <div className="h-[200px] sm:h-[260px] rounded-2xl overflow-hidden bg-black relative border border-white/10 group">
                 <img
                   src={selectedProduct.image}
                   alt={selectedProduct.name}
@@ -226,7 +225,7 @@ export function OurOwnDesignsSection() {
                 <span className="text-[10px] font-mono text-[#F05A22] uppercase tracking-wider block">
                   {selectedProduct.category}
                 </span>
-                <h3 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight mt-0.5 leading-snug">
+                <h3 className="text-lg sm:text-2xl font-black text-white uppercase tracking-tight mt-0.5 leading-snug break-words">
                   {selectedProduct.name}
                 </h3>
                 <p className="text-xs text-white/60 font-medium mt-0.5">
@@ -247,11 +246,10 @@ export function OurOwnDesignsSection() {
                       key={c.name}
                       onClick={() => setActiveColor(c)}
                       aria-label={c.name}
-                      className={`w-6 h-6 rounded-full border-2 transition-all flex items-center justify-center ${
-                        activeColor.name === c.name
+                      className={`w-6 h-6 rounded-full border-2 transition-all flex items-center justify-center ${activeColor.name === c.name
                           ? "border-[#F05A22] scale-110 shadow-lg"
                           : "border-white/20 hover:border-white/60"
-                      }`}
+                        }`}
                       style={{ backgroundColor: c.hex }}
                     >
                       {activeColor.name === c.name && (
@@ -262,9 +260,9 @@ export function OurOwnDesignsSection() {
                 </div>
               </div>
 
-              <div className="flex items-center justify-between pt-1">
+              <div className="flex items-center justify-between gap-2 pt-1">
                 <div>
-                  <span className="text-2xl font-black text-[#F05A22]">
+                  <span className="text-xl sm:text-2xl font-black text-[#F05A22]">
                     ₹{selectedProduct.price}
                   </span>
                   <span className="text-xs text-white/40 line-through ml-2">
@@ -274,7 +272,7 @@ export function OurOwnDesignsSection() {
 
                 <Link
                   href={`/shop/${selectedProduct.slug}`}
-                  className="inline-flex items-center gap-2 bg-[#F05A22] hover:bg-[#C8461A] text-white font-black text-xs uppercase tracking-wider px-6 py-3 rounded-full transition-all shadow-xl hover:scale-105"
+                  className="inline-flex items-center gap-2 bg-[#F05A22] hover:bg-[#C8461A] text-white font-black text-xs uppercase tracking-wider px-4 sm:px-6 py-2.5 sm:py-3 rounded-full transition-all shadow-xl hover:scale-105 shrink-0"
                 >
                   Shop Drop <ArrowRight className="w-4 h-4" />
                 </Link>
@@ -283,16 +281,15 @@ export function OurOwnDesignsSection() {
           </div>
 
           {/* RIGHT: Mouse-Draggable Product Carousel (7 cols) */}
-          <div className="lg:col-span-7 flex flex-col justify-between">
+          <div className="lg:col-span-7 flex flex-col justify-between max-w-full overflow-hidden">
             <div
               ref={scrollRef}
               onMouseDown={handleMouseDown}
               onMouseLeave={handleMouseLeave}
               onMouseUp={handleMouseUp}
               onMouseMove={handleMouseMove}
-              className={`flex gap-5 overflow-x-auto pb-4 scrollbar-none snap-x snap-mandatory h-full select-none ${
-                isDragging ? "cursor-grabbing" : "cursor-grab"
-              }`}
+              className={`flex gap-3 sm:gap-5 overflow-x-auto pb-4 scrollbar-none snap-x snap-mandatory h-full select-none max-w-full ${isDragging ? "cursor-grabbing" : "cursor-grab"
+                }`}
             >
               {filteredProducts.map((p) => {
                 const isSelected = selectedProduct.id === p.id;
@@ -303,13 +300,12 @@ export function OurOwnDesignsSection() {
                       setSelectedProduct(p);
                       setActiveColor(p.colors[0]);
                     }}
-                    className={`group flex-shrink-0 w-[240px] sm:w-[260px] h-[430px] bg-[#141414] border rounded-3xl overflow-hidden transition-all duration-300 flex flex-col justify-between snap-start ${
-                      isSelected
+                    className={`group flex-shrink-0 w-[200px] sm:w-[260px] h-[300px] sm:h-[365px] bg-[#141414] border rounded-3xl overflow-hidden transition-all duration-300 flex flex-col justify-between snap-start ${isSelected
                         ? "border-[#F05A22] shadow-2xl shadow-[#F05A22]/20 ring-1 ring-[#F05A22]"
                         : "border-white/10 hover:border-white/30"
-                    }`}
+                      }`}
                   >
-                    <div className="h-[210px] relative bg-black overflow-hidden flex-shrink-0">
+                    <div className="h-[165px] sm:h-[205px] relative bg-black overflow-hidden flex-shrink-0">
                       <img
                         src={p.image}
                         alt={p.name}
@@ -320,7 +316,7 @@ export function OurOwnDesignsSection() {
                       </span>
                     </div>
 
-                    <div className="p-4 space-y-2 flex-1 flex flex-col justify-between">
+                    <div className="p-3.5 sm:p-4 space-y-1.5 flex-1 flex flex-col justify-between">
                       <div>
                         <span className="text-[10px] font-mono text-[#F05A22] uppercase tracking-wider">
                           {p.category}
@@ -328,21 +324,21 @@ export function OurOwnDesignsSection() {
                         <h4 className="font-bold text-white text-xs sm:text-sm group-hover:text-[#F05A22] transition-colors leading-snug mt-0.5 line-clamp-2">
                           {p.name}
                         </h4>
-                        <p className="text-[11px] text-white/40 mt-1 font-mono">
+                        <p className="text-[10px] sm:text-[11px] text-white/40 mt-1 font-mono truncate">
                           {p.gsm} · {p.printTech}
                         </p>
                       </div>
 
                       <div className="flex items-center justify-between pt-2 border-t border-white/10">
-                        <div className="flex items-baseline gap-1.5">
-                          <span className="font-black text-white text-base">
+                        <div className="flex items-baseline gap-1">
+                          <span className="font-black text-white text-sm sm:text-base">
                             ₹{p.price}
                           </span>
                           <span className="text-[10px] text-white/40 line-through">
                             ₹{p.comparePrice}
                           </span>
                         </div>
-                        <span className="text-xs font-bold text-[#F05A22] group-hover:translate-x-1 transition-transform">
+                        <span className="text-[11px] sm:text-xs font-bold text-[#F05A22] group-hover:translate-x-1 transition-transform">
                           Inspect →
                         </span>
                       </div>
@@ -353,7 +349,7 @@ export function OurOwnDesignsSection() {
             </div>
 
             {/* Bottom Direct Catalog Helper Bar */}
-            <div className="pt-3 flex items-center justify-between text-[11px] font-mono text-white/50 border-t border-white/10">
+            <div className="pt-3 flex flex-col sm:flex-row gap-2 sm:gap-0 items-start sm:items-center justify-between text-[10px] sm:text-[11px] font-mono text-white/50 border-t border-white/10">
               <span>● CLICK OR DRAG TO SLIDE & PREVIEW</span>
               <Link
                 href="/shop"

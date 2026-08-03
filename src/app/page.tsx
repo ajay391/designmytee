@@ -387,16 +387,16 @@ export default function HomePage() {
               </div>
 
               {/* Action Buttons */}
-              <div className="flex flex-wrap items-center gap-4 pt-4">
+              <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-4">
                 <Link
                   href="/custom-request"
-                  className="inline-flex items-center gap-3 bg-[#F05A22] text-white font-black text-xs uppercase tracking-wider px-8 py-4 rounded-full hover:bg-[#C8461A] transition-all shadow-xl shadow-[#F05A22]/30 hover:scale-105"
+                  className="inline-flex items-center justify-center gap-2 sm:gap-3 bg-[#F05A22] text-white font-black text-xs uppercase tracking-wider px-5 sm:px-8 py-2.5 sm:py-4 rounded-full hover:bg-[#C8461A] transition-all shadow-xl shadow-[#F05A22]/30 hover:scale-105"
                 >
                   <Upload className="w-4 h-4" /> Work Directly With a Designer
                 </Link>
                 <Link
                   href="/gallery"
-                  className="inline-flex items-center gap-2 bg-white/5 border border-white/20 text-white font-bold text-xs uppercase tracking-wider px-7 py-4 rounded-full hover:bg-white/10 transition-all"
+                  className="inline-flex items-center justify-center gap-2 bg-white/5 border border-white/20 text-white font-bold text-xs uppercase tracking-wider px-5 sm:px-7 py-2.5 sm:py-4 rounded-full hover:bg-white/10 transition-all"
                 >
                   View Sample Proofs <ArrowUpRight className="w-4 h-4" />
                 </Link>
@@ -449,9 +449,9 @@ export default function HomePage() {
           <div className="pt-4">
             <Link
               href="/custom-request"
-              className="inline-flex items-center gap-3 bg-white text-[#F05A22] font-black text-sm uppercase tracking-wider px-10 py-4.5 rounded-full hover:bg-white/90 hover:scale-105 transition-all shadow-2xl"
+              className="inline-flex items-center justify-center gap-2.5 sm:gap-3 bg-white text-[#F05A22] font-black text-xs sm:text-sm uppercase tracking-wider px-6 sm:px-10 py-2.5 sm:py-4.5 rounded-full hover:bg-white/90 hover:scale-105 transition-all shadow-2xl"
             >
-              Start Your Request <ArrowRight className="w-5 h-5" />
+              Start Your Request <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
             </Link>
           </div>
         </div>
@@ -484,16 +484,16 @@ export default function HomePage() {
             Submit a custom request in under 3 minutes. Our human graphic designers will be in touch with vector artwork concepts.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center pt-4">
             <Link
               href="/custom-request"
-              className="inline-flex items-center justify-center gap-3 bg-[#F05A22] text-white font-black text-sm uppercase tracking-wider px-10 py-4.5 rounded-full hover:bg-[#C8461A] transition-all shadow-2xl shadow-[#F05A22]/30 border-2 border-[#F05A22]"
+              className="inline-flex items-center justify-center gap-2.5 sm:gap-3 bg-[#F05A22] text-white font-black text-xs sm:text-sm uppercase tracking-wider px-5 sm:px-10 py-2.5 sm:py-4.5 rounded-full hover:bg-[#C8461A] transition-all shadow-2xl shadow-[#F05A22]/30 border-2 border-[#F05A22]"
             >
-              <Upload className="w-5 h-5" /> Start Custom Request
+              <Upload className="w-4 h-4 sm:w-5 sm:h-5" /> Start Custom Request
             </Link>
             <Link
               href="/bulk-order"
-              className="inline-flex items-center justify-center gap-2.5 bg-white/5 border border-white/20 text-white font-bold text-xs uppercase tracking-wider px-9 py-4.5 rounded-full hover:bg-white/10 transition-all"
+              className="inline-flex items-center justify-center gap-2 sm:gap-2.5 bg-white/5 border border-white/20 text-white font-bold text-xs uppercase tracking-wider px-5 sm:px-9 py-2.5 sm:py-4.5 rounded-full hover:bg-white/10 transition-all"
             >
               Get Bulk Quote <ArrowUpRight className="w-4 h-4" />
             </Link>
