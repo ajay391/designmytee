@@ -13,41 +13,63 @@ export const metadata = { title: "Admin Dashboard" };
 export default async function AdminDashboard() {
   const supabase = await createClient();
 
-  // Fetch counts in parallel
-  const [
-    { count: totalRequests },
-    { count: pendingRequests },
-    { count: inProgressRequests },
-    { count: awaitingFeedback },
-    { count: totalOrders },
-    { count: pendingOrders },
-    { count: totalBulkRequests },
-    { count: newBulkRequests },
-    { data: recentRequests },
-    { data: recentOrders },
-  ] = await Promise.all([
-    supabase.from("design_requests").select("*", { count: "exact", head: true }),
-    supabase.from("design_requests").select("*", { count: "exact", head: true })
-      .in("status", ["submitted", "in_review"]),
-    supabase.from("design_requests").select("*", { count: "exact", head: true })
-      .in("status", ["assigned", "in_progress"]),
-    supabase.from("design_requests").select("*", { count: "exact", head: true })
-      .eq("status", "awaiting_feedback"),
-    supabase.from("orders").select("*", { count: "exact", head: true }),
-    supabase.from("orders").select("*", { count: "exact", head: true })
-      .eq("status", "pending"),
-    supabase.from("bulk_requests").select("*", { count: "exact", head: true }),
-    supabase.from("bulk_requests").select("*", { count: "exact", head: true })
-      .eq("status", "new"),
-    supabase.from("design_requests")
+  // Try fetching aggregated stats via single RPC call
+  const { data: rpcStats } = await supabase.rpc("get_admin_dashboard_stats");
+
+  let totalRequests = rpcStats?.total_requests ?? 0;
+  let pendingRequests = rpcStats?.pending_requests ?? 0;
+  let inProgressRequests = rpcStats?.in_progress_requests ?? 0;
+  let awaitingFeedback = rpcStats?.awaiting_feedback ?? 0;
+  let totalOrders = rpcStats?.total_orders ?? 0;
+  let pendingOrders = rpcStats?.pending_orders ?? 0;
+  let totalBulkRequests = rpcStats?.total_bulk_requests ?? 0;
+  let newBulkRequests = rpcStats?.new_bulk_requests ?? 0;
+
+  // Recent data queries
+  const [{ data: recentRequests }, { data: recentOrders }] = await Promise.all([
+    supabase
+      .from("design_requests")
       .select("id, tracking_code, title, status, created_at")
       .order("created_at", { ascending: false })
       .limit(6),
-    supabase.from("orders")
+    supabase
+      .from("orders")
       .select("id, source, total, status, created_at")
       .order("created_at", { ascending: false })
       .limit(5),
   ]);
+
+  // Fallback count queries if RPC isn't deployed yet
+  if (!rpcStats) {
+    const [
+      { count: reqCount },
+      { count: pendReqCount },
+      { count: inProgCount },
+      { count: awaitCount },
+      { count: ordCount },
+      { count: pendOrdCount },
+      { count: bulkCount },
+      { count: newBulkCount },
+    ] = await Promise.all([
+      supabase.from("design_requests").select("*", { count: "exact", head: true }),
+      supabase.from("design_requests").select("*", { count: "exact", head: true }).in("status", ["submitted", "in_review"]),
+      supabase.from("design_requests").select("*", { count: "exact", head: true }).in("status", ["assigned", "in_progress"]),
+      supabase.from("design_requests").select("*", { count: "exact", head: true }).eq("status", "awaiting_feedback"),
+      supabase.from("orders").select("*", { count: "exact", head: true }),
+      supabase.from("orders").select("*", { count: "exact", head: true }).eq("status", "pending"),
+      supabase.from("bulk_requests").select("*", { count: "exact", head: true }),
+      supabase.from("bulk_requests").select("*", { count: "exact", head: true }).eq("status", "new"),
+    ]);
+
+    totalRequests = reqCount ?? 0;
+    pendingRequests = pendReqCount ?? 0;
+    inProgressRequests = inProgCount ?? 0;
+    awaitingFeedback = awaitCount ?? 0;
+    totalOrders = ordCount ?? 0;
+    pendingOrders = pendOrdCount ?? 0;
+    totalBulkRequests = bulkCount ?? 0;
+    newBulkRequests = newBulkCount ?? 0;
+  }
 
   return (
     <div className="space-y-8">

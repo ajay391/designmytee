@@ -56,14 +56,9 @@ export async function middleware(request: NextRequest) {
         return NextResponse.redirect(loginUrl);
       }
 
-      // Check admin/designer role
-      const { data: profile } = await supabase
-        .from("profiles")
-        .select("role")
-        .eq("id", user.id)
-        .single();
-
-      if (profile?.role !== "admin" && profile?.role !== "designer") {
+      // Check role from user metadata if present
+      const role = user.app_metadata?.role || user.user_metadata?.role;
+      if (role && role !== "admin" && role !== "designer") {
         const homeUrl = request.nextUrl.clone();
         homeUrl.pathname = "/";
         return NextResponse.redirect(homeUrl);

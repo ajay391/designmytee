@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   description: "Browse our premium ready-made t-shirt designs. Add to cart and get them delivered to your door.",
 };
 
+export const revalidate = 60;
+
+
 const CATEGORIES = ["All", "oversized", "regular", "polo", "hoodie", "jersey"];
 
 export default async function ShopPage({
