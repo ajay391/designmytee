@@ -20,6 +20,11 @@ export async function middleware(request: NextRequest) {
     return supabaseResponse;
   }
 
+  const isProtectedRoute = pathname.startsWith("/admin") || pathname.startsWith("/account");
+  if (!isProtectedRoute) {
+    return supabaseResponse;
+  }
+
   try {
     const supabase = createServerClient(url, key, {
       cookies: {

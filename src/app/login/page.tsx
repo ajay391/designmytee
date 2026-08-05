@@ -47,7 +47,6 @@ export default function LoginPage() {
       } else {
         router.push("/account/design-requests");
       }
-      router.refresh();
     }
   };
 
